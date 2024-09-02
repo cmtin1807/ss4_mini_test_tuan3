@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Type</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Delete Type</h3>
+    <p>
+        <a class="btn btn-secondary" th:href="@{/types}">Back to list types</a>
+    </p>
+    <form th:action="@{/types/delete}" th:object="${type}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <p id="name" th:text="*{name}" class="form-control-plaintext"></p>
+        </div>
+        <div>
+            <input type="submit" value="Delete" class="btn btn-danger"/>
+        </div>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

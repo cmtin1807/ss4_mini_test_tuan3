@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove Post</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Remove Post</h3>
+    <p>
+        <a class="btn btn-secondary" th:href="@{/posts}">Back to post list</a>
+    </p>
+    <div id="form">
+        <form th:action="@{/posts/delete}" th:object="${post}" method="POST">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="mb-3">
+                <label class="form-label">Title:</label>
+                <p th:text="*{title}" class="form-control-plaintext"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Content:</label>
+                <p th:text="*{content}" class="form-control-plaintext"></p>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description:</label>
+                <p th:text="*{description}" class="form-control-plaintext"></p>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <img id="image" height="100" width="100" class="img-thumbnail" th:src="@{'/i/' + ${post.image}}" alt="Post Image">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Type:</label>
+                <th:block th:if="${post.getType()!=null}">
+                    <p th:text="${post.getType().name}" class="form-control-plaintext"></p>
+                </th:block>
+                <th:block th:unless="${post.getType()!=null}">
+                    <p class="form-control-plaintext">Kiểu bài đăng đã bị xóa hoặc không có dữ liệu</p>
+                </th:block>
+            </div>
+            <input type="submit" value="Remove" class="btn btn-danger"/>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

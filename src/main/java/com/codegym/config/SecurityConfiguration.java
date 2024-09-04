@@ -40,12 +40,25 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/login") // Đường dẫn tới trang login tùy chỉnh
+                        .loginProcessingUrl("/perform_login") // URL xử lý khi người dùng submit form login
+                        .defaultSuccessUrl("/posts", true) // URL chuyển đến khi đăng nhập thành công
+                        .failureUrl("/login?error=true") // URL chuyển đến khi đăng nhập thất bại
+                        .permitAll() // Cho phép tất cả người dùng truy cập trang login
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // Đường dẫn để logout
+                        .logoutSuccessUrl("/login?logout=true") // URL chuyển đến khi logout thành công
+                        .invalidateHttpSession(true) // Hủy session hiện tại
+                        .deleteCookies("JSESSIONID") // Xóa cookie JSESSIONID
+                        .permitAll()
+                )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/error_404", "/css/**", "/js/**", "/images/**","/reg").permitAll() // Các URL này đều được phép truy cập mà không cần đăng nhập
-                        .requestMatchers("/posts/**","/i/**").hasAnyRole("USER", "ADMIN") // ROLE_USER và ROLE_ADMIN đều có quyền truy cập vào /posts/
+                        .requestMatchers("/error_404", "/css/**", "/js/**", "/images/**", "/reg").permitAll() // Cho phép truy cập không cần đăng nhập
+                        .requestMatchers("/posts/**","/i/**").hasAnyRole("USER", "ADMIN") // ROLE_USER và ROLE_ADMIN có quyền truy cập vào /posts/
                         .requestMatchers("/**").hasRole("ADMIN") // Chỉ ROLE_ADMIN mới có thể truy cập vào /types/
-                        .anyRequest().authenticated() // Tất cả các request khác đều yêu cầu đăng nhập
+                        .anyRequest().authenticated() // Các request khác yêu cầu đăng nhập
                 );
         return httpSecurity.build();
     }

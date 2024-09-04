@@ -42,8 +42,8 @@ public class SecurityConfiguration {
         httpSecurity
                 .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/error_404", "/css/**", "/js/**", "/images/**").permitAll() // Các URL này đều được phép truy cập mà không cần đăng nhập
-                        .requestMatchers("/posts/**").hasAnyRole("USER", "ADMIN") // ROLE_USER và ROLE_ADMIN đều có quyền truy cập vào /posts/
+                        .requestMatchers("/error_404", "/css/**", "/js/**", "/images/**","/reg").permitAll() // Các URL này đều được phép truy cập mà không cần đăng nhập
+                        .requestMatchers("/posts/**","/i/**").hasAnyRole("USER", "ADMIN") // ROLE_USER và ROLE_ADMIN đều có quyền truy cập vào /posts/
                         .requestMatchers("/**").hasRole("ADMIN") // Chỉ ROLE_ADMIN mới có thể truy cập vào /types/
                         .anyRequest().authenticated() // Tất cả các request khác đều yêu cầu đăng nhập
                 );

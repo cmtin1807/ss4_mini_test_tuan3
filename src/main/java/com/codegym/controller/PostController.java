@@ -39,8 +39,7 @@ public class PostController {
     @GetMapping("")
     public ModelAndView index(@RequestParam(defaultValue = "") String search,
                               @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "5") int size,
-                              Model model) {
+                              @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Post> posts;
 

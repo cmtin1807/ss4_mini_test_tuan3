@@ -33,4 +33,8 @@ public class AppRoleService implements IAppRoleService {
     }
 
 
+    @Override
+    public AppRole findByName(String name) {
+        return appRoleRepo.findByName(name);
+    }
 }

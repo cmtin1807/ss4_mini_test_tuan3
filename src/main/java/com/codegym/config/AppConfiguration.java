@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @EnableTransactionManagement
 @EnableSpringDataWebSupport
-@PropertySource("classpath:file_upload.properties")
+@PropertySource("classpath:application.properties")
 @ComponentScan(basePackages = "com.codegym")
 @EnableJpaRepositories(basePackages = "com.codegym")
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {

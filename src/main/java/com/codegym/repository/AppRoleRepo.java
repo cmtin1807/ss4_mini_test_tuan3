@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface AppRoleRepo extends CrudRepository<AppRole, Long> {
 
-    Optional<AppRole> findByName(String name);
+    AppRole findByName(String name);
 }
